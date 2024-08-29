@@ -1,0 +1,87 @@
+# Terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+crash.log
+override.tf
+override.tf.json
+terraform.tfvars
+*.tfvars
+terraform.tfstate.backup
+*.tfplan
+# Jeśli używasz zdalnego backendu, unikaj wersjonowania stanu lokalnego
+.terraform.lock.hcl
+
+# Ansible
+*.retry
+*.log
+.hosts
+.secrets
+vault_pass.txt
+!roles/**/defaults/main.yml
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Jenkins
+.jenkins_home/
+secrets/
+config.xml
+jobs/**/workspace/
+jobs/**/builds/
+
+# Docker
+*.pid
+*.log
+docker-compose.override.yml
+docker-compose.*.yml
+
+# Logs
+logs/
+*.log
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+*[Cc]ache/
+*.bak
+*~
+
+# Ignore env files
+.env
+.env.*
+!.env.example
+
+# Ignore IDE directories and files
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Ignore SSH keys
+*.pem
+*.key
+
+# Ignore sensitive files
+secrets.yml
