@@ -1,0 +1,45 @@
+---
+- name: Install Jenkins on Ubuntu
+  hosts: workstations
+  become: yes
+
+  tasks:
+    - name: Update APT package index
+      ansible.builtin.apt:
+        update_cache: yes
+
+    - name: Install Java (OpenJDK 17)
+      ansible.builtin.apt:
+        name: openjdk-17-jre
+        state: present
+
+    - name: Install fontconfig (required for Jenkins)
+      ansible.builtin.apt:
+        name: fontconfig
+        state: present
+
+    - name: Download Jenkins repository key
+      ansible.builtin.get_url:
+        url: https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+        dest: /usr/share/keyrings/jenkins-keyring.asc
+
+    - name: Add Jenkins repository
+      ansible.builtin.shell: |
+        echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/" | tee /etc/apt/sources.list.d/jenkins.list
+      args:
+        creates: /etc/apt/sources.list.d/jenkins.list
+
+    - name: Update APT package index after adding Jenkins repo
+      ansible.builtin.apt:
+        update_cache: yes
+
+    - name: Install Jenkins
+      ansible.builtin.apt:
+        name: jenkins
+        state: present
+
+    - name: Ensure Jenkins is enabled and started
+      ansible.builtin.systemd:
+        name: jenkins
+        enabled: yes
+        state: started
